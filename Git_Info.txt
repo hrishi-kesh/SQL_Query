@@ -35,3 +35,5 @@ Uploading file in GITHUB library
 22. git remote ---It will how remote remote repository
 23. git push -u origin master --it will set in such a way so that next time it will push in same branch next time
 24. git clone <any url>  ----any repository we want to clone in our directory from any github source...
+25. git add -A   ---push all code to repository
+git commit -m "commit message"
