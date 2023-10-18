@@ -1,0 +1,37 @@
+Uploading file in GITHUB library
+--youtube codewithharry -Git & GitHub Tutorial For Beginners In Hindi - हिंदी में
+
+1. goto to directory where code is written.
+2. write "git init" in cmd path should in code directory
+3. write "git add file_name" replace file_name with "." for all ---to add file in staging area
+4. git commit -m "your message" ---commit the staging changes
+5. git remote add origin  <remote repository URL of git hub where the particular code folder is there> ---origin is just a short name of this repository
+6. git push -u orgin master
+7. git push -f origin master --- when we forcefully pushing the file
+
+
+------------git basic commands--------------------------
+1. ls -lart   --list all files and folders
+2. git status --showing the status of the files like file is in staging area or untraced area or modified or unmodified
+3. git status -s  ---showing summarise name of the file with status
+4. git config --global user.name Hrishikesh ---set name to git user
+5. git config --get user.name   --it shows the username
+6. git config --global user.email hrishik005@gmail.com  ----set email to git user
+7. git checkout  ---take you to the last commit for any file
+8. git checkout -f ---take you to the last commit for all file
+9. git log --it shows all commit that you have done so far...
+10. git log -p -5 ---It shows last 5 commit
+11. git diff ---it compare modified file to file is in staging area
+12. git diff --stage    ---it compare staging area to last commit
+13. git commit -a -m   ---it all commit without moving to staging area
+14. git rm file_name   ---it remove file from working directory
+15. git rm --cached file_name  ----it remove file only from staging area
+16. touch .gitignore  ----touch will create empty file and .gitignore is file which we don't want to commit or move to staging area or move to repository
+17. content inside the .gitignore  we can rite any file to ignore *.txt ignore all file with .txt format,  folder/ it will ignore that folder
+18. git branch feature1  ---It will do replica of master branch where you can make changes
+19. git checkout feature1 ---It will switch to feature1 branch
+20. git merge feature1 ---It merge feature1 branch with master
+21. git checkout -b flaskIntegration  ---It will create branch flaskIntegration and switch to same...
+22. git remote ---It will how remote remote repository
+23. git push -u origin master --it will set in such a way so that next time it will push in same branch next time
+24. git clone <any url>  ----any repository we want to clone in our directory from any github source...
