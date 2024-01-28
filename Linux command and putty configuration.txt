@@ -1,0 +1,7 @@
+---In windows computer we need to install putty
+1.instll putty
+2.install openssh client and openssh server
+3.ls command will not working in powershell after connecting to localhost or any windows machine.
+4.normally to work ls command in powershell we are using git/usr/bin dir as path variable in environment variable then in normal CMD and powershell ls will work
+5.but still in remote or locahost connection we can't use ls or cat command we need to look into it...
+5.but still in remote or locahost connection we can't use ls or cat command we need to look into it...

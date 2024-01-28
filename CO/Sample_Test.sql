@@ -1,1 +1,1 @@
-select * from store_orders;
+SELECT * FROM customers;
