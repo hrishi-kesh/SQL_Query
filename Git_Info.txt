@@ -6,7 +6,7 @@ Uploading file in GITHUB library
 3. write "git add file_name" replace file_name with "." for all ---to add file in staging area
 4. git commit -m "your message" ---commit the staging changes
 5. git remote add origin  <remote repository URL of git hub where the particular code folder is there> ---origin is just a short name of this repository
-6. git push -u orgin master
+6. git push -u origin master
 7. git push -f origin master --- when we forcefully pushing the file
 
 
