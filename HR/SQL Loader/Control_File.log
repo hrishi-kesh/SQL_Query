@@ -1,9 +1,55 @@
 
-SQL*Loader: Release 19.0.0.0.0 - Production on Mon Feb 5 01:19:34 2024
+SQL*Loader: Release 19.0.0.0.0 - Production on Thu Apr 18 21:24:37 2024
 Version 19.3.0.0.0
 
 Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
 
-SQL*Loader-128: unable to begin a session
-ORA-01017: invalid username/password; logon denied
+Control File:   Control_File.ctl
+Data File:      Sample_Data.csv
+  Bad File:     Sample_Data.bad
+  Discard File: Sample_Data_Discarded.txt 
+ (Allow all discards)
 
+Number to load: ALL
+Number to skip: 1
+Errors allowed: 50
+Bind array:     250 rows, maximum of 1048576 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table EMP_DETAILS, loaded when DEPT_NO = 0X3130(character '10')
+Insert option in effect for this table: TRUNCATE
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+NAME                                FIRST     *   ,       CHARACTER            
+JOB                                  NEXT     *   ,       CHARACTER            
+SAL                                  NEXT     *   ,       CHARACTER            
+DEPT_NO                              NEXT     *   ,       CHARACTER            
+
+Record 2: Discarded - failed all WHEN clauses.
+Record 4: Discarded - failed all WHEN clauses.
+Record 5: Rejected - Error on table EMP_DETAILS, column SAL.
+ORA-01722: invalid number
+
+
+Table EMP_DETAILS:
+  2 Rows successfully loaded.
+  1 Row not loaded due to data errors.
+  2 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 258000 bytes(250 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          1
+Total logical records read:             5
+Total logical records rejected:         1
+Total logical records discarded:        2
+
+Run began on Thu Apr 18 21:24:37 2024
+Run ended on Thu Apr 18 21:24:43 2024
+
+Elapsed time was:     00:00:06.06
+CPU time was:         00:00:00.01

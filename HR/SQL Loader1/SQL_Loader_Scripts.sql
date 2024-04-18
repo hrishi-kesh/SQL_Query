@@ -6,6 +6,7 @@ image1 blob,
 image2 blob,
 image3 blob);
 
+select * from MOVIE_DIRECTORY;
 
 ---How to load data from text or csv file to database table using SQL Loader
 

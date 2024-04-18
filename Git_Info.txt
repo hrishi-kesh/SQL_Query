@@ -35,8 +35,10 @@ git config --global user.email "johndoe@email.com"
 19. git checkout feature1 ---It will switch to feature1 branch
 20. git merge feature1 ---It merge feature1 branch with master
 21. git checkout -b flaskIntegration  ---It will create branch flaskIntegration and switch to same...
-22. git remote ---It will how remote remote repository
+22.  git remote add origin https://github.com/hrishi-kesh/Java-Progs.git
+---It will how remote remote repository
 23. git push -u origin master --it will set in such a way so that next time it will push in same branch next time
 24. git clone <any url>  ----any repository we want to clone in our directory from any github source...
 25. git add -A   ---push all code to repository
 git commit -m "commit message"
+26. git reset HEAD~n   ---it will reset all last three commit or HEAD~ for last commit delete and git reset for hard delete

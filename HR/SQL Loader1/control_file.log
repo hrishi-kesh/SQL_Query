@@ -1,10 +1,10 @@
 
-SQL*Loader: Release 19.0.0.0.0 - Production on Sun Feb 11 23:02:25 2024
+SQL*Loader: Release 19.0.0.0.0 - Production on Thu Apr 18 22:33:35 2024
 Version 19.3.0.0.0
 
 Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
 
-Control File:   control_file.txt
+Control File:   Control_File.txt
 Data File:      Data_File.txt
   Bad File:     Data_File.bad
   Discard File:  none specified
@@ -58,8 +58,8 @@ Total logical records read:             1
 Total logical records rejected:         0
 Total logical records discarded:        0
 
-Run began on Sun Feb 11 23:02:25 2024
-Run ended on Sun Feb 11 23:02:28 2024
+Run began on Thu Apr 18 22:33:35 2024
+Run ended on Thu Apr 18 22:33:37 2024
 
-Elapsed time was:     00:00:03.60
-CPU time was:         00:00:00.68
+Elapsed time was:     00:00:01.74
+CPU time was:         00:00:00.09

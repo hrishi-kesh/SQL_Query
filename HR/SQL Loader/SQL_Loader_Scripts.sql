@@ -4,7 +4,7 @@ Job varchar2(10) Not null,
 Sal Number(20) Not null,
 Dept_No Number(10) Not null);
 
-
+select * from EMP_DETAILS;
 ---How to load data from text or csv file to database table using SQL Loader
 
 1.create any text file or csv file with data
@@ -20,6 +20,8 @@ FIELDS TERMINATED BY ','
 JOB,
 SAL,
 DEPT_NO)
+
+Control_File.ctl;
 
 ---save this file as .ctl file
 3. run the script in cmd in pluggable database schema HR or CO it will not run in any system or sys schema
