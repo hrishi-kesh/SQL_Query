@@ -6,3 +6,4 @@ dbms_output.put_line('Table of a:' ||a*b);
 end loop;
 end;
 
+

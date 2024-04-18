@@ -1,0 +1,15 @@
+options(skip=1)
+load data
+infile 'Data_File.txt'
+truncate into Table Movie_Directory
+Fields terminated by ','
+(Sr_No,
+Film_Name,
+Titanic_Info Filler char(100),
+Film_Details lobfile(Titanic_Info) terminated by EOF,
+Titanic_Poster Filler char(100),
+Image1 lobfile(Titanic_Poster) terminated by EOF,
+Actor Filler char(100),
+Image2 lobfile(Actor) terminated by EOF,
+Actress Filler char(100),
+Image3 lobfile(Actress) terminated by EOF)

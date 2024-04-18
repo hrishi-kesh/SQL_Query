@@ -5,7 +5,7 @@ connected
 sql>alter session set container=orclpdb;
 Session altered.
 SQL> column name format a15
-SQL> 
+SQL> select name,open_mode from v$pdbs;
 
 NAME            OPEN_MODE
 --------------- ----------
@@ -14,7 +14,7 @@ ORCLPDB         MOUNTED
 SQL> alter pluggable database orclpdb save state;
 
 Pluggable database altered.
-select name,open_mode from v$pdbs;
+
 SQL> @C:\Oracle19c\WINDOWS.X64_193000_db_home\demo\schema\human_resources\hr_main.sql [pass for HR user] [default TABLESPACE for HR user (users)] 
 [temp tablespace(temp)] [pass for system user] 
 [path of logs can be any path (C:\Oracle19c\WINDOWS.X64_193000_db_home\demo\schema\] [connect string(localhost:1521/orclpdb)]
@@ -64,5 +64,8 @@ sql>connect [another schema]/[pass]@orclpdb; ---to switch from one schema to ano
 
 1. SQL> alter pluggable database orclpdb save state;
 2. sql>select name, con_id from v$pdbs;
-3. sql>@C:\db_home\demo\schema\customer_orders\co_install.sql securecode users temp securecode C:\db_home\demo\schema\customer_orders connect CO/pass@localhost:1521/orclpdb)
-4. similary run for co_populate.sql
+3. sql>alter session set "_ORACLE_SCRIPT"=true; 
+4. sql>@C:\WINDOWS.X64_193000_db_home\demo\schema\customer_orders\co_install.sql pass users temp pass C:\WINDOWS.X64_193000_db_home\demo\schema\ connect string(localhost:1521/orclpdb)
+5. similary run for co_create then co_populate.sql
+
+---------------------Reset password of any schema under pluggable database-------------------

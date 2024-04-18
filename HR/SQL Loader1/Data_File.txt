@@ -1,0 +1,2 @@
+---Data load into Movie_Directory
+1,Titanic,Titanic_info.txt,Titanic_Poster.jpg,Actor.jpg,Actress.jpg

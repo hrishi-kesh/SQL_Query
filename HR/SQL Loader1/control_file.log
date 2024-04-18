@@ -1,0 +1,65 @@
+
+SQL*Loader: Release 19.0.0.0.0 - Production on Sun Feb 11 23:02:25 2024
+Version 19.3.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   control_file.txt
+Data File:      Data_File.txt
+  Bad File:     Data_File.bad
+  Discard File:  none specified
+ 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 1
+Errors allowed: 50
+Bind array:     250 rows, maximum of 1048576 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table MOVIE_DIRECTORY, loaded from every logical record.
+Insert option in effect for this table: TRUNCATE
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+SR_NO                               FIRST     *   ,       CHARACTER            
+FILM_NAME                            NEXT     *   ,       CHARACTER            
+TITANIC_INFO                         NEXT   100   ,       CHARACTER            
+  (FILLER FIELD)
+FILM_DETAILS                      DERIVED     *  EOF      CHARACTER            
+    Dynamic LOBFILE.  Filename in field TITANIC_INFO
+TITANIC_POSTER                       NEXT   100   ,       CHARACTER            
+  (FILLER FIELD)
+IMAGE1                            DERIVED     *  EOF      CHARACTER            
+    Dynamic LOBFILE.  Filename in field TITANIC_POSTER
+ACTOR                                NEXT   100   ,       CHARACTER            
+  (FILLER FIELD)
+IMAGE2                            DERIVED     *  EOF      CHARACTER            
+    Dynamic LOBFILE.  Filename in field ACTOR
+ACTRESS                              NEXT   100   ,       CHARACTER            
+  (FILLER FIELD)
+IMAGE3                            DERIVED     *  EOF      CHARACTER            
+    Dynamic LOBFILE.  Filename in field ACTRESS
+
+
+Table MOVIE_DIRECTORY:
+  1 Row successfully loaded.
+  0 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 231000 bytes(250 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          1
+Total logical records read:             1
+Total logical records rejected:         0
+Total logical records discarded:        0
+
+Run began on Sun Feb 11 23:02:25 2024
+Run ended on Sun Feb 11 23:02:28 2024
+
+Elapsed time was:     00:00:03.60
+CPU time was:         00:00:00.68

@@ -1,6 +1,9 @@
 Uploading file in GITHUB library
 --youtube codewithharry -Git & GitHub Tutorial For Beginners In Hindi - हिंदी में
 
+git config --global user.name "John Doe"
+git config --global user.email "johndoe@email.com"
+
 1. goto to directory where code is written.
 2. write "git init" in cmd path should in code directory
 3. write "git add file_name" replace file_name with "." for all ---to add file in staging area
