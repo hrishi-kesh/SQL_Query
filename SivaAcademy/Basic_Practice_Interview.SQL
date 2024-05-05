@@ -23,3 +23,5 @@ select substr('WELCOME',1,level) from dual connect by level<=length('WELCOME');
 SELECT EMPNO,ENAME FROM emp start with ename='SMITH' connect by empno=prior mgr; 
 --4.2.list all the employee below KING ---corelated query
 SELECT EMPNO,ENAME FROM emp start with ename='KING' connect by prior empno=mgr; 
+
+

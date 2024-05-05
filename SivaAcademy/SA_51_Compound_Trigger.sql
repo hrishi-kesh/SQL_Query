@@ -35,7 +35,7 @@ end Emp_Comp_Trigger;
 
 select * from Emp_Details;
 
-create or replace Emp_Comp_Trigger FOR 
+create or replace Trigger Emp_Comp_Trigger FOR 
 insert or update or delete on Emp_Details Compound Trigger
 
 g_var varchar2(50):='Demo of compont trigger';
@@ -65,6 +65,10 @@ BEGIN
 end after statement;
 
 end Emp_Comp_Trigger;
+
+select * from Emp_Details;
+insert into Emp_Details values(13,'abc13');
+commit;
 
 
 

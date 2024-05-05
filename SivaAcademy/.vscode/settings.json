@@ -1,0 +1,4 @@
+{
+    "connections.startupScript.path": "D:\\PLSQL\\startup.sql",
+    "connections.tnsConfiguration.path": "C:\\WINDOWS.X64_193000_db_home\\network\\admin\\tnsnames.ora"
+}
