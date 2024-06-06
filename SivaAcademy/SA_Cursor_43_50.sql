@@ -98,7 +98,7 @@ END;
 --merger syntax
 /*merge into target t using
 source s on (s.id=t.id)
-wh,t.nameen MATCHED
+when MATCHED
 THEN
     update set s.name=t.name;
 when not MATCHED
