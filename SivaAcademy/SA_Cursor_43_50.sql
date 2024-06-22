@@ -30,7 +30,7 @@ DECLARE
 CURSOR c_name IS 
 SELECT ENAME FROM emp;
 BEGIN
-FOR i IN c_name LOOP
+FOR i in c_name LOOP
 DBMS_OUTPUT.PUT_LINE('The names of the employees are: ' || i.ENAME);
 END LOOP;
 IF c_name%ISOPEN THEN

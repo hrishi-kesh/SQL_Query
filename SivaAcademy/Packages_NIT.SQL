@@ -1,5 +1,8 @@
 --------Packages in PL/SQL | Oracle PL/SQL Tutorial Videos | Mr.Vijay Kumar by Naresh i Technology----
 
+---Apart from procedure and function inside packages specification what else we can write.
+--Constants Types Cursors Variables Exceptions Subtypes Pragma directives 
+--Pragma directives: Pragma directives provide instructions to the compiler about the behavior of the package or its elements.
 create table emp_NIT as select empno,ename,job,sal,deptno from emp;
 select * from EMP_NIT;
 create or replace package HR
