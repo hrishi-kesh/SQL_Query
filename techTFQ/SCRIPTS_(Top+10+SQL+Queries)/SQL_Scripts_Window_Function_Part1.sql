@@ -59,7 +59,7 @@ from employee e;
 -- Fetch the first 2 employees from each department to join the company.
 select * from (
 	select e.*,
-	row_number() over(partition by dept_name order by emp_id) as rn
+	row_number() over(partition by dept order by id) as rn
 	from employee e) x
 where x.rn < 3;
 
@@ -67,16 +67,16 @@ where x.rn < 3;
 -- Fetch the top 3 employees in each department earning the max salary.
 select * from (
 	select e.*,
-	rank() over(partition by dept_name order by salary desc) as rnk
+	rank() over(partition by dept order by salary desc) as rnk
 	from employee e) x
 where x.rnk < 4;
 
 
 -- Checking the different between rank, dense_rnk and row_number window functions:
 select e.*,
-rank() over(partition by dept_name order by salary desc) as rnk,
-dense_rank() over(partition by dept_name order by salary desc) as dense_rnk,
-row_number() over(partition by dept_name order by salary desc) as rn
+rank() over(partition by dept order by salary desc) as rnk,
+dense_rank() over(partition by dept order by salary desc) as dense_rnk,
+row_number() over(partition by dept order by salary desc) as rn
 from employee e;
 
 
@@ -85,14 +85,14 @@ from employee e;
 
 -- fetch a query to display if the salary of an employee is higher, lower or equal to the previous employee.
 select e.*,
-lag(salary) over(partition by dept_name order by emp_id) as prev_empl_sal,
-case when e.salary > lag(salary) over(partition by dept_name order by emp_id) then 'Higher than previous employee'
-     when e.salary < lag(salary) over(partition by dept_name order by emp_id) then 'Lower than previous employee'
-	 when e.salary = lag(salary) over(partition by dept_name order by emp_id) then 'Same than previous employee' end as sal_range
+lag(salary) over(partition by dept order by id) as prev_empl_sal,
+case when e.salary > lag(salary) over(partition by dept order by id) then 'Higher than previous employee'
+     when e.salary < lag(salary) over(partition by dept order by id) then 'Lower than previous employee'
+	 when e.salary = lag(salary) over(partition by dept order by id) then 'Same than previous employee' end as sal_range
 from employee e;
 
 -- Similarly using lead function to see how it is different from lag.
 select e.*,
-lag(salary) over(partition by dept_name order by emp_id) as prev_empl_sal,
-lead(salary) over(partition by dept_name order by emp_id) as next_empl_sal
+lag(salary) over(partition by dept order by id) as prev_empl_sal,
+lead(salary) over(partition by dept order by id) as next_empl_sal
 from employee e;
