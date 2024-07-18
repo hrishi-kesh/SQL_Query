@@ -332,11 +332,11 @@ END;
 
 
 ---MULTISET OPERATORS it works on collections of same type
---mltiset union
---mltiset intersect
---mltiset except
---mltiset union all ---if we don't write union all it works like union only
---mltiset union distinct ---it shows unique value
+--multiset union
+--multiset intersect
+--multiset except
+--multiset union all ---if we don't write union all it works like union only
+--multiset union distinct ---it shows unique value
 
 ---multiset intersect  ---common in both
 ---multiset intersect all
@@ -350,8 +350,8 @@ END;
 --union in sql ---it remove duplicate and sort the output
 
 
---mltiset union all ---if we don't write union all it works like union only
---mltiset union distinct ---it shows unique value
+--multiset union all ---if we don't write union all it works like union only
+--multiset union distinct ---it shows unique value
 DECLARE
 type num_tab_type is table of number;
 lv_num_list1 num_tab_type:=num_tab_type(1,1,2,2,3,4,5,8,8);
