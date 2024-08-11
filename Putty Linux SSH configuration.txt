@@ -1,0 +1,117 @@
+Step 1: Install OpenSSH Server
+Open Settings:
+
+Click on the Start menu and then Settings (gear icon).
+Go to Apps:
+
+Navigate to Apps > Optional Features.
+Add a Feature:
+
+Scroll down and click on Add a feature.
+Search for OpenSSH Server:
+
+In the search box, type "OpenSSH Server".
+Select "OpenSSH Server" from the list and click Install.
+Step 2: Start the OpenSSH SSH Server Service
+Open Services:
+
+Press Win + R, type services.msc, and press Enter.
+Locate the OpenSSH SSH Server:
+
+Scroll down the list to find "OpenSSH SSH Server".
+Start the Service:
+
+Right-click on "OpenSSH SSH Server" and select Start.
+Set to Start Automatically (Optional):
+
+Right-click on "OpenSSH SSH Server", select Properties, and set the "Startup type" to Automatic so it starts every time your computer boots.
+Step 3: Verify and Configure the Server
+Check the Default Port:
+
+By default, the SSH server listens on port 22. If you need to check or change this, you can edit the sshd_config file located in C:\ProgramData\ssh\.
+Allow Through Firewall:
+
+Ensure that your Windows Firewall allows SSH traffic on port 22.
+Step 4: Connect Using PuTTY
+Open PuTTY:
+
+Enter 127.0.0.1 in the Host Name field and 22 in the Port field.
+Start the Connection:
+
+Click Open to start the SSH session.
+After following these steps, you should be able to connect to your local machine using PuTTY and 127.0.0.1. If you encounter any issues, let me know!
+
+or through powershell
+
+Start the OpenSSH Server:
+Open PowerShell as Administrator and run:
+powershell
+
+Start-Service sshd
+To make it start automatically with your system, you can enable it:
+powershell
+
+Set-Service -Name sshd -StartupType 'Automatic'
+3. Allow SSH through the Firewall:
+Ensure that your firewall is not blocking the SSH service:
+powershell
+Start the OpenSSH Server:
+Open PowerShell as Administrator and run:
+powershell
+
+Start-Service sshd
+To make it start automatically with your system, you can enable it:
+powershell
+
+Set-Service -Name sshd -StartupType 'Automatic'
+3. Allow SSH through the Firewall:
+Ensure that your firewall is not blocking the SSH service:
+powershell
+
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Dir
+
+1. use 127.0.0.1 or localhost to connect 
+2. use system user and password to login
+
+There are two users specific users like root and oracle serve for diff purpose
+1. root:- for full access of your system administration it can do installation and configuration of oracle software or any software
+2. 
+
+
+-----To run all linux command in windows same like linux
+--1. Goto control panel programs -->add features -->select Windows subsystem for linux distributions
+--2. Then download unbuntu from windows playstore
+--3. Then create and configure account
+--4. Run command in powershell  
+wsl --list --verbose
+
+my linux ip
+172.27.31.253
+
+---after ubuntu account created
+--1. login in ubuntu server
+--2. sudo apt update
+sudo apt install openssh-server
+--3. sudo service ssh start
+--4. sudo netstat -tuln | grep :22   ---to check whether services running or not
+
+
+---To access windows file from wsl(ubuntu) 
+use
+C: Drive:
+You can access your C: drive at /mnt/c/. For example:
+
+bash
+Copy code
+cd /mnt/c/Users/YourUsername/Documents
+ls
+D: Drive (if you have one):
+You can access the D: drive at /mnt/d/.
+
+---To access windows file from wsl(windows) 
+same as linux
+
+
+
+
+

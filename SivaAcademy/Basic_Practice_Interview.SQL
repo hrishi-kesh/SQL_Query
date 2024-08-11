@@ -187,7 +187,7 @@ delete from ERROR_LOG;
 commit;
 
 
--------EY Interveiw Questions--------
+-------EY july 2024  Interveiw Questions--------
 --1. Write a function which takes empno as an input and resturn empname and deptno as output
 
 --this question can be solve by three ways
@@ -389,7 +389,7 @@ END;
 /
 
 
--------EY Interveiw Questions--------
+-------EY july 2024 Interveiw Questions--------
 --2. Write a Trigger which throw  error when we insert/update data in table 
 
 select * from employees e;
@@ -401,10 +401,89 @@ BEGIN
 end;
 /
 
+-------Fiserv july 2024 Interveiw Questions--------
+/*
+1. How to remove all space from a string?
+2. write a query to list out user name who don't have access_role 2 and 3 
+3. While migrating data from one database to another what things we need to focus most?
+*/
+--1. Answer
+SELECT REGEXP_REPLACE(TRIM('  This   is   a    sample   string.  '), '\s+', ' ') AS cleaned_text
+FROM dual;
 
+--2. write a query to list out user name who don't have access_role 2 and 3 
+--2. Answer
 
+CREATE TABLE UserAccess (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    access_role INT
+);
 
+INSERT INTO UserAccess (id, name, access_role)
+SELECT 1, 'abc', 1 FROM dual UNION ALL
+SELECT 2, 'abc', 2 FROM dual UNION ALL
+SELECT 3, 'abc', 3 FROM dual UNION ALL
+SELECT 4, 'abc1', 1 FROM dual UNION ALL
+SELECT 5, 'abc1', 3 FROM dual UNION ALL
+SELECT 6, 'abc2', 1 FROM dual UNION ALL
+SELECT 7, 'abc2', 4 FROM dual UNION ALL
+SELECT 8, 'abc3', 4 FROM dual;
+commit;
 
+select name from useraccess where name not in (select name from useraccess where access_role in (2,3)) group by name;
+
+--3. While migrating data from one database to another what things we need to focus most?
+/*
+1. Data Integrity and Consistency:
+   Data Validation:
+    Data Mapping:
+    Transformation Rules:
+2. Database Compatibility:
+   Schema Compatibility: 
+   Data Type Mapping:
+3. Migration Strategy:
+   Full vs. Incremental Migration:
+   Downtime Minimization:
+   Backup and Rollback Plan: 
+4. Testing and Validation:
+   Pre-Migration Testing:
+   Post-Migration Validation:
+5. Performance Considerations:
+   Indexing:
+   Query Optimization:
+   Resource Management:
+6. Security:
+   User Access Control: 
+   Data Encryption: 
+7. Application Compatibility:
+   Connection Strings: 
+   Code Compatibility: 
+   Testing Applications:
+8. Documentation:
+   Migration Plan:
+   Post-Migration Documentation:
+9. Communication:
+   Stakeholder Communication: 
+   Training: 
+10. Legal and Compliance Considerations:
+   Data Retention Policies:
+   Regulatory Requirements:
+*/
+
+--1. If our query is taking much time to execute what could be the possible reason and solutions for it.
+/*
+1. Inefficient Query Design
+
+2. Lack of Indexing
+3. Large Dataset or Table Scans
+4. Poor Execution Plan
+5. Locking and Contention
+6. Insufficient Resources
+7. Network Latency
+8. Suboptimal Database Configuration
+9. Missing or Inappropriate Use of Caching
+*/
 
 
 
