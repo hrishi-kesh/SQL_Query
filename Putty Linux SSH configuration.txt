@@ -112,6 +112,16 @@ You can access the D: drive at /mnt/d/.
 same as linux
 
 
+/mnt/C:/WINDOWS.X64_193000_db_home/bin/sqlplus.exe / as sysdba
 
+---IP assigned to system which is using for oracle server login 172.27.16.1
+---login as oracle 
+
+
+/mnt/c/WINDOWS.X64_193000_db_home/bin
+
+export PATH=$PATH:/mnt/c/WINDOWS.X64_193000_db_home/bin
+
+alias sqlplus='/mnt/c/WINDOWS.X64_193000_db_home/bin/sqlplus.exe'
 
 
