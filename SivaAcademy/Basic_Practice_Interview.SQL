@@ -548,5 +548,69 @@ end;
 
 ---if you mention out parameter as sys_refcursor then you can use fetch inside the anonymous block while calling the procedure
 
-    
+-----------------------------------MedImpact GBS Interview Questions-------------------------------
+
+CREATE TABLE customer (
+    cust_id NUMBER PRIMARY KEY,
+    cust_name VARCHAR2(100)
+);
+
+CREATE TABLE orders (
+    o_id NUMBER PRIMARY KEY,
+    cust_id NUMBER,
+    price NUMBER,
+    new_price NUMBER,
+    inc_price NUMBER,
+    CONSTRAINT fk_cust FOREIGN KEY (cust_id) REFERENCES customer(cust_id)
+);
+
+INSERT INTO customer (cust_id, cust_name) VALUES (1, 'A');
+INSERT INTO customer (cust_id, cust_name) VALUES (2, 'B');
+INSERT INTO customer (cust_id, cust_name) VALUES (3, 'C');
+INSERT INTO customer (cust_id, cust_name) VALUES (4, 'D');
+commit;
+INSERT INTO orders (o_id, cust_id, price, new_price) VALUES (1, 1, 100, 100);
+INSERT INTO orders (o_id, cust_id, price, new_price) VALUES (2, 1, 200, 300);
+INSERT INTO orders (o_id, cust_id, price, new_price) VALUES (3, 1, 150, 450);
+INSERT INTO orders (o_id, cust_id, price, new_price) VALUES (4, 2, 500, 500);
+INSERT INTO orders (o_id, cust_id, price, new_price) VALUES (5, 3, 1000, 1000);
+INSERT INTO orders (o_id, cust_id, price, new_price) VALUES (6, 3, 2000, 3000);
+commit;
+
+select * from customer;
+MERGE INTO orders o
+USING (
+    SELECT o_id,
+           price - LAG(price, 1, 0) OVER (PARTITION BY cust_id ORDER BY o_id) AS Inc_Price
+    FROM orders
+) calc
+ON (o.o_id = calc.o_id)
+WHEN MATCHED THEN
+UPDATE SET o.inc_price = calc.Inc_Price;
+
+--Q 1: How can you retrieve the names of customers who have no orders in the orders table?
+select c.cust_id, c.cust_name from customer c left outer join Orders o on c.cust_id=o.cust_id where o.o_id is null;
+
+--Q 2: How would you calculate the cumulative sum of the price column within each customer (cust_id) group, ordered by price, using the SUM window function?
+select o_id,cust_id,price,sum(price) over (partition by cust_id order by o_id) as new_price from orders o;
+
+select o_id,cust_id,price,sum(price) over (partition by cust_id) as new_price from orders o;--Actually, in window functions, when you do not specify ORDER BY within the OVER clause, it does not default to ascending or any other order for cumulative operations. Instead, it treats the operation as a total aggregation for each partition without a running sum.---showing 450,450,450,500,3000,3000
+--It is only aggregating cust_id wise
+
+
+--Q 3: How can you calculate the difference in the price between each order and its preceding order for each customer using a window function?
+select price - lag(price,1,0) over(partition by cust_id  order by o_id) Inc_Price  from orders;
+
+--To update this in last column we can use below query
+MERGE INTO orders o
+USING (
+    SELECT o_id,
+           price - LAG(price, 1, 0) OVER (PARTITION BY cust_id ORDER BY o_id) AS Inc_Price
+    FROM orders
+) calc
+ON (o.o_id = calc.o_id)
+WHEN MATCHED THEN
+UPDATE SET o.inc_price = calc.Inc_Price;
+
+
 
