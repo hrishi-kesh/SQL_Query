@@ -70,3 +70,19 @@ end;
 --SA_Ans many trigger we can create but order of execution 1st statement trigger then for each row tigger
 ---57 if same type of trigger like before or after is created on same table how many trigger we can create the order of execution.
 --SA_Ans many trigger we can create but order of execution is decided by oracle but can change the order of execution by writting  follows Trigger_1(this should after each row)
+
+--Trigger's default variables
+/*
+USER: Returns the name of the user logged into the session.
+SYS_CONTEXT('USERENV', 'OS_USER'): Retrieves the operating system user.
+SYS_CONTEXT('USERENV', 'TERMINAL'): Retrieves the terminal or machine name.
+SYS_CONTEXT('USERENV', 'HOST'): Retrieves the host name from which the login occurred.
+
+:NEW.column_name  
+In an INSERT trigger, the :NEW value represents the data being inserted into the table.
+In an UPDATE trigger, the :NEW value represents the new value after the update.
+
+:OLD.column_name
+It is only used in UPDATE and DELETE triggers (not in INSERT triggers).
+Example in an UPDATE or DELETE trigger:
+*/

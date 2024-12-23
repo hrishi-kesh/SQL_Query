@@ -5,3 +5,104 @@
 4.normally to work ls command in powershell we are using git/usr/bin dir as path variable in environment variable then in normal CMD and powershell ls will work
 5.but still in remote or locahost connection we can't use ls or cat command we need to look into it...
 5.but still in remote or locahost connection we can't use ls or cat command we need to look into it...
+
+1. File and Directory Operations
+File Operations:
+
+cat [file] - Display the contents of a file.
+cat notes.txt
+
+tac [file] - Display a file in reverse order.
+touch [file] - Create an empty file or update the timestamp of an existing file.
+rm [file] - Remove a file.
+cp [source] [destination] - Copy files.
+mv [source] [destination] - Move or rename files.
+nano [file] - Edit a file using the Nano editor.
+vi [file] or vim [file] - Edit a file using the Vi/Vim editor.
+head [file] - Display the first few lines of a file.
+head -n 5 data.txt
+
+tail [file] - Display the last few lines of a file.
+wc [file] - Count the number of lines, words, and characters in a file.
+file [file] - Determine the file type.
+diff [file1] [file2] - Compare two files line by line.
+cmp [file1] [file2] - Compare two files byte by byte.
+stat [file] - Display detailed information about a file.
+truncate -s [size] [file] - Shrink or extend the size of a file.
+
+Directory Operations:
+ls - List files and directories.
+ls -l - List files in long format (permissions, size, etc.).
+ls -a - Show hidden files.
+mkdir [directory] - Create a new directory.
+rmdir [directory] - Remove an empty directory.
+rm -r [directory] - Remove a directory and its contents.
+pwd - Print the current working directory.
+cd [directory] - Change the current directory.
+tree - Display directory structure in a tree format.
+
+2. File Search and Manipulation
+find [path] -name [filename] - Search for files by name.
+find /home/user -name "notes.txt"
+
+find /path/to/search -type [f/d] -name "pattern"  ----type f: Search for files. -type d: Search for directories.
+
+find /var/log -type f -name "*.log"
+
+Find Files Based on Size
+find /path/to/search -size +[size]c
++[size]: Larger than the given size.
+-[size]: Smaller than the given size.
+
+find /tmp -size +1M
+
+Search for Content in Files (grep)
+grep [pattern] [file] - Search for a pattern in a file.
+grep "search_term" [file]
+
+grep "ERROR" /var/log/syslog
+
+Search recursively in multiple files:
+grep -r "keyword" /path/to/directory
+
+locate [filename] - Locate a file (uses a pre-built index).
+
+locate "notes.txt"
+Quickly finds notes.txt if the system has an updated index
+
+sed 's/[pattern]/[replacement]/g' [file] - Search and Replace text in a file.
+sed 's/Linux/Unix/g' sample.txt   ---Replaces all occurrences of Linux with Unix in sample.txt.
+
+awk '{print $1}' [file] - Extract specific columns from text.
+awk '{print $1, $3}' data.txt
+Prints the first and third columns from data.txt.
+
+3. File Permissions and Ownership
+chmod [permissions] [file] - Change file permissions.
+Example: chmod 755 file (rwxr-xr-x).
+chown [user]:[group] [file] - Change file ownership.
+umask - Set default file permissions.
+4. Compression and Archiving
+tar -cvf [archive.tar] [files] - Create an archive.
+tar -xvf [archive.tar] - Extract an archive.
+gzip [file] - Compress a file.
+gunzip [file.gz] - Decompress a file.
+zip [archive.zip] [files] - Compress files into a ZIP archive.
+unzip [archive.zip] - Extract a ZIP archive.
+5. Networking and Internet
+ping [host] - Test connectivity to a host.
+curl [URL] - Transfer data from a URL.
+wget [URL] - Download files from a URL.
+ifconfig or ip a - Display network interfaces.
+netstat -an - Show network connections.
+scp [source] [user@host:destination] - Securely copy files over SSH.
+6. System Information
+uname -a - Display system information.
+df -h - Show disk usage in human-readable format.
+du -sh [file/directory] - Show size of a file or directory.
+free -h - Show memory usage.
+top - Display running processes.
+ps aux - Show all processes.
+uptime - Show how long the system has been running.
+whoami - Display the current user.
+hostname - Show the hostname of the system.
