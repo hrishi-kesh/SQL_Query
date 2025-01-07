@@ -693,7 +693,7 @@ select e.first_name from employees e, employees d where e.MANAGER_ID=d.employee_
 select * from EMPLOYEES where first_name in ('Ellen','Lisa');--salary- 11000,11500 Manager_id 149,148  manager salary 10500 11000
 select * from EMPLOYEES where employee_id in ('149','148');--manager_id
 --2. Find the department name who has no employees
-select  d.department_name from employees e left join DEPARTMENTS d on e.DEPARTMENT_ID=d.DEPARTMENT_ID and e.DEPARTMENT_ID is null; 
+select  d.department_name from employees e left join DEPARTMENTS d on e.DEPARTMENT_ID=d.DEPARTMENT_ID and d.DEPARTMENT_ID is null; 
 
 select * from employees where department_id is null;
 --3. Find the employees who is earing maximum salary in their respective department
@@ -701,7 +701,7 @@ with cte
 as
 (select e.*, dense_rank()over(partition by department_id order by salary desc) rn from EMPLOYEES e)
 select  EMPLOYEE_ID from cte where rn=1;
---verification
+--verifications
 select e.*, dense_rank()over(partition by department_id order by salary desc) rn from EMPLOYEES e;
 
 --4. Find the employees who are managers.
@@ -722,3 +722,97 @@ WHERE e.department_id = m.department_id;
 SELECT e1.employee_id, e1.First_name, e1.salary
 FROM employees e1
 JOIN employees e2 ON e1.salary = e2.salary AND e1.employee_id != e2.employee_id;
+
+
+--------------------------TechM Manegerial round 24 Dec 24-----------------------
+/* write a query to get the unmatched records from both the table
+table1
+e1	d1
+e2  d2
+e3  d3
+
+table2
+e1	d1
+e2  d2
+e5	d5 */
+
+SELECT * 
+FROM table1 t1
+FULL OUTER JOIN table2 t2 
+ON t1.e1 = t2.e1 AND t1.d1 = t2.d1
+WHERE t1.e1 IS NULL OR t2.e1 IS NULL;
+
+/*
+Write a query to find the total sales data for each region (region_name) for the last year (relative to the current date) where the total sales exceed 1000. Use a Common Table Expression (CTE) to structure the query, and ensure the results include only the region names.
+*/
+create TABLE Sales_data (
+    region_name VARCHAR2(100),
+    sales_date DATE,
+    amount NUMBER(10, 2),
+    product_id VARCHAR2(50),
+    sales_rep VARCHAR2(100),
+    transaction_id VARCHAR2(50) PRIMARY KEY,
+    created_at DATE DEFAULT SYSDATE
+);
+
+-- Index on region_name and sales_date to optimize queries that filter by region and date
+CREATE INDEX idx_sales_region_date ON Sales_data(region_name, sales_date);
+
+-- Index on amount for faster aggregation queries
+CREATE INDEX idx_sales_amount ON Sales_data(amount);
+
+BEGIN
+    FOR i IN 1..100 LOOP
+        INSERT INTO Sales_data (region_name, sales_date, amount, product_id, sales_rep, transaction_id, created_at)
+        VALUES (
+            'Region' || MOD(i, 10),  -- Generating region names (Region0, Region1, ..., Region9)
+            TO_DATE('2023-' || LPAD(MOD(i, 12) + 1, 2, '0') || '-01', 'YYYY-MM-DD'),  -- Assigning months from January 2023 to December 2023
+            ROUND(DBMS_RANDOM.VALUE(50, 200), 2),  -- Random sales amount between 50 and 200
+            'P' || TO_CHAR(MOD(i, 10) + 1),  -- Random product IDs (P1, P2, ..., P10)
+            'SalesRep' || TO_CHAR(MOD(i, 5) + 1),  -- Sales representative names (SalesRep1, SalesRep2, ..., SalesRep5)
+            'T' || TO_CHAR(i),  -- Transaction IDs (T1, T2, ..., T100)
+            SYSDATE  -- Setting the created_at column to the current date
+        );
+    END LOOP;
+    COMMIT;
+END;
+/
+
+WITH cte AS (
+  SELECT 
+    region_name,
+    SUM(amount) AS total_sales
+  FROM Sales_data
+  WHERE EXTRACT(YEAR FROM TO_DATE(sales_date, 'YYYY-MM-DD')) = EXTRACT(YEAR FROM SYSDATE) - 1
+  GROUP BY region_name
+)
+SELECT region_name
+FROM cte
+WHERE total_sales > 1000;
+
+--------------------------Consert ai assessment round 24 Dec 24-----------------------
+--1. Write a SQL Query to generate fibonacci series up to 100
+DECLARE
+    n1 NUMBER := 0;
+    n2 NUMBER := 1;
+    next NUMBER;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('series');
+    DBMS_OUTPUT.PUT_LINE(n1); 
+    DBMS_OUTPUT.PUT_LINE(n2);
+
+    LOOP
+        next := n1 + n2;
+        EXIT WHEN next > 100;
+        DBMS_OUTPUT.PUT_LINE(next);
+        n1 := n2;
+        n2 := next;
+    END LOOP;
+END;
+/
+
+
+
+
+
+

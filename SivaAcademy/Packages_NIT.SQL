@@ -103,3 +103,54 @@ end;
 
 select MYPACK1.ADDNUM(2,4) from dual;
 select MYPACK1.ADDNUM(2,'abc') from dual;
+
+-- Oracle provides several security mechanisms for packages to ensure that only authorized users can execute or debug the package code.
+
+-- Privileges:
+
+-- Grant execute permission to a user or role
+GRANT EXECUTE ON package_name TO user_or_role;
+
+-- Grant debug permission to a user or role
+GRANT DEBUG ON package_name TO user_or_role;
+
+-- Package Specification Control:
+
+-- Make only specific procedures public while keeping others private
+CREATE OR REPLACE PACKAGE secure_pkg AS
+     -- Public procedures
+     PROCEDURE public_proc;
+     
+     -- Private (not accessible outside the package)
+     PROCEDURE private_proc; -- Defined in the package body only
+END secure_pkg;
+
+-- Fine-Grained Access Control:
+
+-- Apply fine-grained access control to restrict package execution based on custom security policies
+BEGIN
+     DBMS_RLS.ADD_POLICY (
+          object_schema      => 'schema',
+          object_name        => 'package_name',
+          policy_name        => 'security_policy',
+          function_schema    => 'schema',
+          policy_function    => 'security_function',
+          statement_types    => 'EXECUTE'
+     );
+END;
+
+-- Encryption:
+
+-- Compile the package body with native code and disable debugging to enhance security
+ALTER PACKAGE package_name COMPILE BODY 
+     PLSQL_CODE_TYPE = NATIVE 
+     PLSQL_DEBUG = FALSE;
+
+-- Roles:
+
+-- Create a role and grant execute permission on the package to the role
+CREATE ROLE package_user_role;
+GRANT EXECUTE ON package_name TO package_user_role;
+
+-- Grant the role to a specific user
+GRANT package_user_role TO username;

@@ -6,6 +6,39 @@
 5.but still in remote or locahost connection we can't use ls or cat command we need to look into it...
 5.but still in remote or locahost connection we can't use ls or cat command we need to look into it...
 
+---Or we can install wsl extension in vscode and we can work
+---to set the default wsl to execute in vscode terminal everytime
+
+Steps to Configure WSL as the Default Terminal in VS Code
+Open VS Code Settings:
+
+Press Ctrl + , or go to File > Preferences > Settings.
+Search for Terminal Profiles:
+
+In the search bar, type terminal.integrated.profiles.windows.
+Add a Profile for WSL:
+
+Click on the gear icon next to Edit in settings.json.
+Add the following configuration:
+json
+Copy code
+{
+  "terminal.integrated.profiles.windows": {
+    "WSL": {
+      "path": "C:\\Windows\\System32\\wsl.exe"
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "WSL"
+}
+Save the File:
+
+Save the changes in settings.json.
+Reload the Window:
+
+Press Ctrl + Shift + P, type Reload Window, and press Enter.
+
+
+
 1. File and Directory Operations
 File Operations:
 
