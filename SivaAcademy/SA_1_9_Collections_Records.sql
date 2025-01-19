@@ -54,7 +54,7 @@ BEGIN
 end;
 /
 
----we can insert data directly from one table to another with the help of recod
+---we can insert data directly from one table to another with the help of record
 create table emp_bkp as select * from emp where 1=2;
 DECLARE
 v_emp_rec emp%rowtype;
@@ -225,6 +225,7 @@ BEGIN
 end;
 /
 ---collection methods like limit,count,first,last,trim(n),delete,extend(n),prior(n),next(n)
+--delete() can delete all elements from varray
 
 ---limit gives the size of the varray, count will give the how many element actually initialize
 --limit is only applicable for varray not nested table and associative array

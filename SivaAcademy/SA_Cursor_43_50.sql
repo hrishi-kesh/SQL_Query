@@ -44,7 +44,7 @@ END;
 DECLARE
 CURSOR c_name IS 
 SELECT ENAME FROM emp;
-lv_ename emp.ENAME%TYPE;
+lv_ename emp.ENAME%TYPE;--c_name%ROWTYPE;--if we use rowtype then only fetch one time without loop
 BEGIN
     open c_name;
     loop
@@ -57,7 +57,15 @@ CLOSE c_name;
 END IF;
 END;
 /
-
+DECLARE
+CURSOR c_name IS 
+SELECT ENAME FROM emp;
+BEGIN
+    for i in c_name loop
+    DBMS_OUTPUT.PUT_LINE('The names of the employees are: ' || i.ename);
+    END LOOP;
+END;
+/
 ---using cursor in local procedure
 declare
 procedure abc

@@ -38,7 +38,7 @@ select * from Emp_Details;
 create or replace Trigger Emp_Comp_Trigger FOR 
 insert or update or delete on Emp_Details Compound Trigger
 
-g_var varchar2(50):='Demo of compont trigger';
+g_var varchar2(50):='Demo of compound trigger';
 
 before statement is
 l_var varchar2(50):=' before statement ';
