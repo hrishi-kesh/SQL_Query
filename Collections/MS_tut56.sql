@@ -3,7 +3,7 @@ create or replace type dbObj_vry is varray(5) of number;---obj type create of va
 create table calendar(
 day_name varchar2(25),
 day_date dbObj_vry);
-/
+
 insert into calendar values('sunday',dbObj_vry(1,16,17,18));-- careful while inserting data in end column put obj type then value
 commit;
 SELECT * FROM calendar;

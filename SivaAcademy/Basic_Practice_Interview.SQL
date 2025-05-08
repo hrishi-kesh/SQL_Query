@@ -34,9 +34,9 @@ SELECT REGEXP_REPLACE('123abc456def', '1|3', '') AS cleaned_string FROM dual;--r
 ---Find the 1st day of the month in oracle---
 SELECT TO_CHAR(TRUNC(sysdate, 'MM'), 'Day') AS first_day_of_month FROM dual;--shows name of 1st day of month
 SELECT TO_CHAR(TRUNC(to_date('04052024','ddmmyyyy'), 'MM'), 'Day') AS first_day_of_month FROM dual;--shows name of 1st day of month
-SELECT TRUNC(SYSDATE, 'yyyy') AS first_day_of_year FROM dual;---shows year 1st date
-SELECT TRUNC(SYSDATE, 'mm') AS first_day_of_month FROM dual;---shows month 1st date
-SELECT TRUNC(SYSDATE, 'day') AS first_day_of_week FROM dual;--shows week 1st date
+SELECT TRUNC(SYSDATE, 'yyyy') AS first_date_of_year FROM dual;---shows year 1st date
+SELECT TRUNC(SYSDATE, 'mm') AS first_date_of_month FROM dual;---shows month 1st date
+SELECT TRUNC(SYSDATE, 'day') AS first_date_of_week FROM dual;--shows week 1st date
 
 select * from employees;
 SELECT 
@@ -592,9 +592,9 @@ UPDATE SET o.inc_price = calc.Inc_Price;
 select c.cust_id, c.cust_name from customer c left outer join Orders o on c.cust_id=o.cust_id where o.o_id is null;
 
 --Q 2: How would you calculate the cumulative sum of the price column within each customer (cust_id) group, ordered by price, using the SUM window function?
-select o_id,cust_id,price,sum(price) over (partition by cust_id order by o_id) as new_price from orders o;
+select o_id,cust_id,price,sum(price) over (partition by cust_id order by o_id) as new_price from orders o;--this will show running sum of price column for each customer id wise--showing 100,300,450,500,1000,3000
 
-select o_id,cust_id,price,sum(price) over (partition by cust_id) as new_price from orders o;--Actually, in window functions, when you do not specify ORDER BY within the OVER clause, it does not default to ascending or any other order for cumulative operations. Instead, it treats the operation as a total aggregation for each partition without a running sum.---showing 450,450,450,500,3000,3000
+select o_id,cust_id,price,sum(price) over (partition by cust_id) as new_price from orders o;--This one is cummulative sum, Actually, in window functions, when you do not specify ORDER BY within the OVER clause, it does not default to ascending or any other order for cumulative operations. Instead, it treats the operation as a total aggregation for each partition without a running sum.---showing 450,450,450,500,3000,3000
 --It is only aggregating cust_id wise
 
 
@@ -810,6 +810,155 @@ BEGIN
     END LOOP;
 END;
 /
+
+--Join interview questions
+select * from tab_a inner join tab_b on tab_a.id=tab_b.id;--it will show 0 if no data in both the table 
+--find the non matching records from both the tables
+select * from tab_a a full outer join tab_b b on a.id = b.id where a.id is null or b.id is null;
+
+--Capgemini Interview Questions in April 2025
+--IPL_Teams
+CREATE TABLE IPL_Teams (
+    Team1 VARCHAR2(50),
+    Team2 VARCHAR2(50),
+    Winner VARCHAR2(50)
+);
+
+select * from IPL_Teams;
+
+--We want to count the number of matches won by each team, including teams that never won (i.e., their count would be 0).
+SELECT t.team, COUNT(m.winner) AS win_count
+FROM (
+  SELECT team1 AS team FROM IPL_Teams
+  UNION
+  SELECT team2 AS team FROM IPL_Teams
+) t
+LEFT JOIN IPL_Teams m
+  ON t.team = m.winner
+GROUP BY t.team
+ORDER BY win_count DESC;
+
+select winner, count(winner) as win_count from IPL_Teams group by winner order by win_count desc;--this will show the winner team and their count of winning matches
+
+
+--Genpact DB ETL Developer Interview Questions in April 2025
+/*
+1. Find the unique records from the table emp_gen.
+
+"EMP_ID","EMP_NAME"
+1,"hrish"
+1,"hrish"
+2,"hrish"
+2,"Alok"
+3,"Siva"
+3,"Siva"
+4,"John"
+4,"John"
+5,"Mike"
+5,"Mike"
+6,"Alice"
+6,"Alice"
+7,"Bob"
+7,"Bob"
+8,"Emma"
+8,"Emma"
+9,"Raj"
+9,"Raj"
+10,"Priya"
+10,"Priya"
+
+*/
+CREATE TABLE emp_gen (
+    emp_id NUMBER,
+    emp_name VARCHAR2(50)
+);
+
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (1, 'hrish');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (1, 'hrish');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (2, 'hrish');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (2, 'Alok');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (3, 'Siva');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (3, 'Siva');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (4, 'John');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (4, 'John');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (5, 'Mike');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (5, 'Mike');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (6, 'Alice');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (6, 'Alice');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (7, 'Bob');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (7, 'Bob');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (8, 'Emma');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (8, 'Emma');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (9, 'Raj');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (9, 'Raj');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (10, 'Priya');
+INSERT INTO emp_gen (emp_id, emp_name) VALUES (10, 'Priya');
+
+COMMIT;
+
+select * from emp_gen;--this will show duplicate records
+
+--1. Find the unique records from the table emp_gen.
+select emp_id, emp_name from (select emp_id, emp_name, row_number() over(partition by emp_id order by emp_name)
+ rnk from emp_gen) where rnk=1;--this will show unique records
+
+with cte
+as 
+(select emp_id, emp_name, row_number() over(partition by emp_id order by emp_name)
+ rnk from emp_gen)
+select emp_id, emp_name from cte where rnk=1;--this will show unique records
+
+--Defragmentation and index rebuild
+--Genpact DB ETL Developer 2nd Round Interview Questions in April 2025
+--Q1. Extract domain name from an email column 
+select email,substr(email,instr(email,'@')+1) as domain_name from employees;--this will show domain name from email column. If third parameter is not given then it will take the length of string as default. length(email)
+
+--2nd way
+-- Extract the domain name from the email column using REPLACE.
+SELECT 
+    email,
+    REPLACE(email, SUBSTR(email, 1, INSTR(email, '@'))) AS domain_name---if third paramerter is not given then it will take the empty string as default like this ''
+FROM employees;
+
+-- Explanation:
+-- 1. SUBSTR(email, 1, INSTR(email, '@')) extracts the part of the email string up to and including the '@' character.
+-- 2. REPLACE(email, SUBSTR(email, 1, INSTR(email, '@'))) removes this part, leaving only the domain name.
+
+select * from employees;
+/*SELECT trigger_name, trigger_type, triggering_event, table_name, status
+FROM user_triggers
+WHERE trigger_name = 'TRIG_INSUPD';
+
+SELECT text
+FROM user_source
+WHERE name = 'TRIG_INSUPD'
+ORDER BY line;
+*/
+--Since this trigger is already there so it is not allowing to update the table so we need to drop the trigger first
+--DROP TRIGGER SIVAACADEMY.TRIG_INSUPD;
+
+--2.To count how many dots (.) are in a string like 'a.b.c.d@gmail.com' in Oracle SQL
+
+SELECT LENGTH('a.b.c.d@gmail.com') - LENGTH(REPLACE('a.b.c.d@gmail.com', '.', '')) AS dot_count
+FROM dual;
+
+SELECT REGEXP_COUNT('a.b.c.d@gmail.com', '.') AS dot_count FROM dual;--2nd way '/.'-->4 and '.'-->17 bcoz counting all characters including dot and space its regular expression pattern match.
+
+SELECT CASE 
+         WHEN REGEXP_LIKE('abc1234', '\d') THEN 'TRUE' --This checks if the string 'abc123' contains at least one digit (\d is the regular expression for a digit).
+         ELSE 'FALSE' 
+       END AS result,
+       LENGTH('abc1234') - LENGTH(REGEXP_REPLACE('abc1234', '\d', '')) AS digit_count, --This calculates the count of digits in the string by replacing all digits with an empty string and subtracting the length of the modified string from the original string length.
+FROM dual;
+-- Output: TRUE,4
+
+SELECT LENGTH('abc1234') - LENGTH(REGEXP_REPLACE('abc1234', '\D', '')) AS non_digit_count FROM dual;
+-- Output: 3 (has only non-digits)
+
+
+
+
+
 
 
 

@@ -11,4 +11,4 @@ create table base_table
 tab_id number,
 tab_ele my_nt
 ) nested table tab_ele store as base_tab1;
-/
+
