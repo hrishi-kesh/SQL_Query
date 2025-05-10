@@ -942,18 +942,57 @@ ORDER BY line;
 SELECT LENGTH('a.b.c.d@gmail.com') - LENGTH(REPLACE('a.b.c.d@gmail.com', '.', '')) AS dot_count
 FROM dual;
 
-SELECT REGEXP_COUNT('a.b.c.d@gmail.com', '.') AS dot_count FROM dual;--2nd way '/.'-->4 and '.'-->17 bcoz counting all characters including dot and space its regular expression pattern match.
+SELECT REGEXP_COUNT('a.b.c.d@gmail.com', '/.') AS dot_count FROM dual;--2nd way '/.'-->4 and '.'-->17 bcoz counting all characters including dot and space its regular expression pattern match.
 
 SELECT CASE 
          WHEN REGEXP_LIKE('abc1234', '\d') THEN 'TRUE' --This checks if the string 'abc123' contains at least one digit (\d is the regular expression for a digit).
          ELSE 'FALSE' 
        END AS result,
-       LENGTH('abc1234') - LENGTH(REGEXP_REPLACE('abc1234', '\d', '')) AS digit_count, --This calculates the count of digits in the string by replacing all digits with an empty string and subtracting the length of the modified string from the original string length.
+       LENGTH('abc1234') - LENGTH(REGEXP_REPLACE('abc1234', '\d', '')) AS digit_count --This calculates the count of digits in the string by replacing all digits with an empty string and subtracting the length of the modified string from the original string length.
 FROM dual;
 -- Output: TRUE,4
 
 SELECT LENGTH('abc1234') - LENGTH(REGEXP_REPLACE('abc1234', '\D', '')) AS non_digit_count FROM dual;
 -- Output: 3 (has only non-digits)
+
+--Common REGEX Patterns with Examples
+SELECT 'Matched' as Matched_Col FROM dual where REGEXP_LIKE('abc123', '\d');--('abcdef', '\d') this will show null value \d for digits and /D for non-digits
+
+SELECT REGEXP_COUNT('a_b.c!', '\w') FROM dual;--Match Word Character (\w) Match Non-Word Character (\W)
+-- Output: 4 (a, b, c, _)
+SELECT REGEXP_COUNT('a b\tc\nd', '\s') FROM dual;
+-- Output: 1
+SELECT case when REGEXP_LIKE('hello', '^h') then 'true' else 'false' end Result  FROM dual;--(^) string starts with h  -- Output: TRUE
+SELECT case when REGEXP_LIKE('file.txt', '\.txt$') then 'true' else 'false' end Result FROM dual;--if you won't give \. instead of . then it will show true even without ().)
+-- Output: TRUE
+SELECT REGEXP_COUNT('banana', '^[ab]') FROM dual;--[^ab] not a or b ^[ab] start with a or b
+-- Output: 4 (matches all a and b)
+SELECT REGEXP_COUNT('abcWXYZ123', '[A-Z]') FROM dual;-- Output: 3 (W,X,Y,Z)
+SELECT case when REGEXP_LIKE('aaaaa', 'a{3,5}') then 'true' else 'false' end Result FROM dual;-- Output: TRUE (has 5 a’s)
+SELECT REGEXP_REPLACE('abc123def456', '\d', '#') FROM dual;-- Output: abc###def###
+
+-- Woking on Regular Expressions with this table
+select * from regexp_tab;
+SELECT 
+  alphanum_mixed,
+  REGEXP_SUBSTR(alphanum_mixed, '^\d+') AS start_with_digits_only,-- matching start with one or more digits
+  REGEXP_SUBSTR(alphanum_mixed, '\D+$') AS end_with_non_digits_only-- matching ends with one or more non-digits at the end ($) means end with
+FROM regexp_tab;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
