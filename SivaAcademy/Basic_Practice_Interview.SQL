@@ -995,12 +995,3 @@ FROM regexp_tab;
 
 
 
-
-
-
-
-
-
-
-
-
