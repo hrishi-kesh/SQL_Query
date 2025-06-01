@@ -18,7 +18,7 @@ WITH cte (id, item_name, total_count,lev) AS (
     SELECT id, item_name, total_count, 1 AS lev
     FROM travel_items
     UNION ALL
-    SELECT cte.id, cte.item_name, cte.total_count - 1, cte.lev + 1
+    SELECT cte.id, cte.item_name, cte.total_count - 1, cte.lev + 1---- Recursive part: generate next row by reducing total_count and increasing lev
     FROM cte
     WHERE cte.total_count > 1
 )

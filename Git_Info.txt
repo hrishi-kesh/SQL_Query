@@ -53,3 +53,14 @@ Steps to copy someone git code without creating separate repository or downloadi
 5. git push origin <branch-name>
 6. git remote remove other-repo
 
+
+--If some commit already happened due to large file even after deleting that one if still create an issue then we use this commands.
+1.  git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -40
+It will show the list of commit having size more
+2. git filter-repo --strip-blobs-bigger-than 100M --force
+It will remove that commit showing more than 100M
+3. git reflog expire --expire=now --all
+   git gc --prune=now --aggressive
+4. git push origin --force --all
+
+
