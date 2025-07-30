@@ -2,6 +2,7 @@ select * from emp_dup;
 select * from emp;
 --1.Find the duplicate records
 select ENAME,count(empno) from emp_dup group by empno,ENAME having COUNT(EMPNO)>1;
+DELETE FROM emp_dup WHERE (empno, ename) IN (SELECT empno, ename FROM emp_dup GROUP BY empno, ename HAVING COUNT(*) > 1);
 --1.1.Delete the duplicate records by keeping unique iord
 delete from emp_dup where ROWID not in (select max(ROWID) from emp_dup group by empno);
 --2. Find the third max salary department wise
@@ -979,10 +980,28 @@ SELECT
   REGEXP_SUBSTR(alphanum_mixed, '\D+$') AS end_with_non_digits_only-- matching ends with one or more non-digits at the end ($) means end with
 FROM regexp_tab;
 
+create table t_emp as select * from emp where 1=2;--This will create new table with same data type but constraints, comments, indexes, triggers and grant will not be copied
+select * from emp;
+select * from t_emp_dept;
 
+select * from employees_countries;
 
+ALTER TABLE employees_countries ADD country VARCHAR2(50);
 
-
+-- Step 1: Create a temporary inline table with row numbers and random countries
+UPDATE employees_countries
+SET country = CASE                     -- Using CASE statement to set country values
+    FLOOR(DBMS_RANDOM.VALUE(1, 9))     -- Generates random numbers between 1-8: DBMS_RANDOM.VALUE(1,9) generates decimal between 1-9, FLOOR rounds down to nearest integer
+    WHEN 1 THEN 'India'                -- If random number is 1, assign 'India'
+    WHEN 2 THEN 'UK'                   -- If random number is 2, assign 'UK'
+    WHEN 3 THEN 'USA'                  -- If random number is 3, assign 'USA'
+    WHEN 4 THEN 'Canada'               -- If random number is 4, assign 'Canada'
+    WHEN 5 THEN 'Japan'                -- If random number is 5, assign 'Japan'
+    WHEN 6 THEN 'Australia'            -- If random number is 6, assign 'Australia'
+    WHEN 7 THEN 'Russia'               -- If random number is 7, assign 'Russia'
+    WHEN 8 THEN 'China'                -- If random number is 8, assign 'China'
+END
+WHERE country IS NULL OR country = '';  -- Only update rows where country is NULL or empty
 
 
 
