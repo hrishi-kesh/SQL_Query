@@ -981,7 +981,7 @@ SELECT
 FROM regexp_tab;
 
 create table t_emp as select * from emp where 1=2;--This will create new table with same data type but constraints, comments, indexes, triggers and grant will not be copied
-select * from emp;
+select * from t_employees1;
 select * from t_emp_dept;
 
 select * from employees_countries;
@@ -1002,7 +1002,7 @@ SET country = CASE                     -- Using CASE statement to set country va
     WHEN 8 THEN 'China'                -- If random number is 8, assign 'China'
 END
 WHERE country IS NULL OR country = '';  -- Only update rows where country is NULL or empty
-
+select * from t_employees_union;
 
 
 
